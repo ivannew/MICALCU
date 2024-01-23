@@ -1,7 +1,5 @@
 ﻿using MICALCU.Vista;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace MICALCU
 {
@@ -10,7 +8,6 @@ namespace MICALCU
         public App()
         {
             InitializeComponent();
-
             MainPage = new Calvuladora();
         }
 
@@ -27,3 +24,4 @@ namespace MICALCU
         }
     }
 }
+

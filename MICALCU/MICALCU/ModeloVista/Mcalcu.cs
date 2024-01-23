@@ -6,7 +6,7 @@ namespace MICALCU.ModeloVista
 {
     public class Mcalcu : BaseViewModel
     {
-        private string _entradaActual = "";
+        private string _entradaActual = "0";
         private string _operadorActual = "";
         private double _primerNumero = 0.0;
         private bool _seEstaIngresandoNumero = false;
@@ -17,6 +17,24 @@ namespace MICALCU.ModeloVista
         public ICommand LimpiarCommand { get; private set; }
         public ICommand DecimalCommand { get; private set; }
         public ICommand EliminarCommand { get; private set; }
+
+        public ICommand CCommand { get; private set; }
+        public ICommand DividirCommand { get; private set; }
+        public ICommand PorCommand { get; private set; }
+        public ICommand MasCommand { get; private set; }
+        public ICommand SieteCommand { get; private set; }
+        public ICommand OchoCommand { get; private set; }
+        public ICommand NueveCommand { get; private set; }
+        public ICommand MenosCommand { get; private set; }
+        public ICommand CuatroCommand { get; private set; }
+        public ICommand CincoCommand { get; private set; }
+        public ICommand SeisCommand { get; private set; }
+        public ICommand MultiCommand { get; private set; }
+        public ICommand UnoCommand { get; private set; }
+        public ICommand DosCommand { get; private set; }
+        public ICommand TresCommand { get; private set; }
+        public ICommand CeroCommand { get; private set; }
+        public ICommand PuntoCommand { get; private set; }
 
         public string EntradaActual
         {
@@ -50,6 +68,24 @@ namespace MICALCU.ModeloVista
             LimpiarCommand = new Command(EnBotonLimpiarClickeado);
             DecimalCommand = new Command(EnBotonDecimalClickeado);
             EliminarCommand = new Command(EnBotonEliminarClickeado);
+
+            CCommand = new Command(EnBotonLimpiarClickeado);
+            DividirCommand = new Command(() => EnBotonOperadorClickeado("/"));
+            PorCommand = new Command(() => EnBotonOperadorClickeado("*"));
+            MasCommand = new Command(() => EnBotonOperadorClickeado("+"));
+            SieteCommand = new Command(() => EnBotonNumeroClickeado("7"));
+            OchoCommand = new Command(() => EnBotonNumeroClickeado("8"));
+            NueveCommand = new Command(() => EnBotonNumeroClickeado("9"));
+            MenosCommand = new Command(() => EnBotonOperadorClickeado("-"));
+            CuatroCommand = new Command(() => EnBotonNumeroClickeado("4"));
+            CincoCommand = new Command(() => EnBotonNumeroClickeado("5"));
+            SeisCommand = new Command(() => EnBotonNumeroClickeado("6"));
+            MultiCommand = new Command(() => EnBotonOperadorClickeado("*"));
+            UnoCommand = new Command(() => EnBotonNumeroClickeado("1"));
+            DosCommand = new Command(() => EnBotonNumeroClickeado("2"));
+            TresCommand = new Command(() => EnBotonNumeroClickeado("3"));
+            CeroCommand = new Command(() => EnBotonNumeroClickeado("0"));
+            PuntoCommand = new Command(EnBotonDecimalClickeado);
         }
 
         private void EnBotonNumeroClickeado(string presionado)

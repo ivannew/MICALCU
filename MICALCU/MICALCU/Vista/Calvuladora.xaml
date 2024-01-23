@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MICALCU.MainPage"
+             x:Class="MICALCU.Vista.Calvuladora"
              BackgroundColor="Black">
 
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-            <Entry x:Name="EntryDisplay" Text="{Binding DisplayText}" HorizontalTextAlignment="End" FontSize="32" TextColor="White" Margin="10"/>
+            <Entry x:Name="EntryDisplay" Text="{Binding EntradaActual}" HorizontalTextAlignment="End" FontSize="32" TextColor="White" Margin="10"/>
 
             <Frame BackgroundColor="#51676C">
                 <Grid>
@@ -25,114 +25,114 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Botón C -->
-                    <Button Grid.Row="0" Grid.Column="0" Text="C" BackgroundColor="#39394c"  Command="{Binding CCommand}" TextColor="#00CDFF" Clicked="EnBotonLimpiarClickeado">
+                    <Button Grid.Row="0" Grid.Column="0" Text="C" BackgroundColor="#39394c"  Command="{Binding CCommand}" TextColor="#00CDFF">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón / -->
-                    <Button Grid.Row="0" Grid.Column="1" Text="/" BackgroundColor="#39394c" Command="{Binding DividirCommand}" TextColor="#00CDFF" Clicked="EnBotonOperadorClickeado">
+                    <Button Grid.Row="0" Grid.Column="1" Text="/" BackgroundColor="#39394c" Command="{Binding DividirCommand}" TextColor="#00CDFF">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón X -->
-                    <Button Grid.Row="0" Grid.Column="2" Text="X" BackgroundColor="#39394c" Command="{Binding PorCommand}" TextColor="#00CDFF" Clicked="EnBotonOperadorClickeado">
+                    <Button Grid.Row="0" Grid.Column="2" Text="X" BackgroundColor="#39394c" Command="{Binding PorCommand}" TextColor="#00CDFF" >
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón + -->
-                    <Button Grid.Row="0" Grid.Column="3" Text="+" BackgroundColor="#39394c" Command="{Binding MasCommand}" TextColor="#00CDFF" Clicked="EnBotonOperadorClickeado">
+                    <Button Grid.Row="0" Grid.Column="3" Text="+" BackgroundColor="#39394c" Command="{Binding MasCommand}" TextColor="#00CDFF">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 7 -->
-                    <Button Grid.Row="1" Grid.Column="0" Text="7" BackgroundColor="#39394c"  Command="{Binding SieteCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="1" Grid.Column="0" Text="7" BackgroundColor="#39394c"  Command="{Binding SieteCommand}" TextColor="White">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 8 -->
-                    <Button Grid.Row="1" Grid.Column="1" Text="8" BackgroundColor="#39394c" Command="{Binding OchoCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="1" Grid.Column="1" Text="8" BackgroundColor="#39394c" Command="{Binding OchoCommand}" TextColor="White" >
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 9 -->
-                    <Button Grid.Row="1" Grid.Column="2" Text="9" BackgroundColor="#39394c" Command="{Binding NueveCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="1" Grid.Column="2" Text="9" BackgroundColor="#39394c" Command="{Binding NueveCommand}" TextColor="White">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón - -->
-                    <Button Grid.Row="1" Grid.Column="3" Text="-" BackgroundColor="#39394c" Command="{Binding MenosCommand}" TextColor="#00CDFF" Clicked="EnBotonOperadorClickeado">
+                    <Button Grid.Row="1" Grid.Column="3" Text="-" BackgroundColor="#39394c" Command="{Binding MenosCommand}" TextColor="#00CDFF">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 4 -->
-                    <Button Grid.Row="2" Grid.Column="0" Text="4" BackgroundColor="#39394c" Command="{Binding CuatroCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="2" Grid.Column="0" Text="4" BackgroundColor="#39394c" Command="{Binding CuatroCommand}" TextColor="White">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 5 -->
-                    <Button Grid.Row="2" Grid.Column="1" Text="5" BackgroundColor="#39394c" Command="{Binding CincoCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="2" Grid.Column="1" Text="5" BackgroundColor="#39394c" Command="{Binding CincoCommand}" TextColor="White">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 6 -->
-                    <Button Grid.Row="2" Grid.Column="2" Text="6" BackgroundColor="#39394c" Command="{Binding SeisCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="2" Grid.Column="2" Text="6" BackgroundColor="#39394c" Command="{Binding SeisCommand}" TextColor="White">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón * -->
-                    <Button Grid.Row="2" Grid.Column="3" Text="*" BackgroundColor="#39394c" Command="{Binding MultiCommand}" TextColor="#17cdee"  Clicked="EnBotonOperadorClickeado">
+                    <Button Grid.Row="2" Grid.Column="3" Text="*" BackgroundColor="#39394c" Command="{Binding MultiCommand}" TextColor="#17cdee">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 1 -->
-                    <Button Grid.Row="3" Grid.Column="0" Text="1" BackgroundColor="#39394c" Command="{Binding UnoCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="3" Grid.Column="0" Text="1" BackgroundColor="#39394c" Command="{Binding UnoCommand}" TextColor="White">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 2 -->
-                    <Button Grid.Row="3" Grid.Column="1" Text="2" BackgroundColor="#39394c" Command="{Binding DosCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="3" Grid.Column="1" Text="2" BackgroundColor="#39394c" Command="{Binding DosCommand}" TextColor="White" >
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 3 -->
-                    <Button Grid.Row="3" Grid.Column="2" Text="3" BackgroundColor="#39394c" Command="{Binding TresCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="3" Grid.Column="2" Text="3" BackgroundColor="#39394c" Command="{Binding TresCommand}" TextColor="White">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón = -->
-                    <Button Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Text="=" BackgroundColor="#00CDFF"  Command="{Binding IgualCommand}" TextColor="White" Clicked="EnBotonIgualClickeado">
+                    <Button Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Text="=" BackgroundColor="#00CDFF"  Command="{Binding IgualCommand}" TextColor="White">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón 0 -->
-                    <Button Grid.Row="4" Grid.Column="1" Text="0" BackgroundColor="#39394c" Command="{Binding CeroCommand}" TextColor="White" Clicked="EnBotonNumeroClickeado">
+                    <Button Grid.Row="4" Grid.Column="1" Text="0" BackgroundColor="#39394c" Command="{Binding CeroCommand}" TextColor="White">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
 
                     <!-- Botón . -->
-                    <Button Grid.Row="4" Grid.Column="0" Text="." BackgroundColor="#39394c" Command="{Binding PuntoCommand}" TextColor="#00CDFF" Clicked="EnBotonDecimalClickeado">
+                    <Button Grid.Row="4" Grid.Column="0" Text="." BackgroundColor="#39394c" Command="{Binding PuntoCommand}" TextColor="#00CDFF">
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>
                     <!-- Botón Eliminar -->
-                    <Button Grid.Row="4" Grid.Column="2" Text="⌫" BackgroundColor="#39394c" Command="{Binding EliminarCommand}" TextColor="#00CDFF" Clicked="EnBotonEliminarClickeado">
+                    <Button Grid.Row="4" Grid.Column="2" Text="⌫" BackgroundColor="#39394c" Command="{Binding EliminarCommand}" TextColor="#00CDFF" >
                         <Button.BorderWidth>0</Button.BorderWidth>
                         <Button.BorderRadius>30</Button.BorderRadius>
                     </Button>

@@ -19,17 +19,13 @@ namespace MICALCU.ModeloVista
         private bool _divisions;
         private bool _multiplicacions;
         private bool _restas;
-        #endregion
-
-        #region CONSTRUCTOR
+      
         public Mcalcu(INavigation navigation)
         {
             Navigation = navigation;
-            ResetearCalculadora();
+            borrartodo();
         }
-        #endregion
-
-        #region OBJETOS
+       
         public bool Divisions
         {
             get { return _divisions; }
@@ -184,7 +180,7 @@ namespace MICALCU.ModeloVista
 
         }
 
-        private void ResetearCalculadora()
+        private void borrartodo()
         {
             Resultado = "0";
             _operacion = "";
@@ -217,7 +213,7 @@ namespace MICALCU.ModeloVista
                 num2 = resultadoNumerico;
 
 
-                Resultado = RealizarOperacion(num1, num2, _operador).ToString();
+                Resultado = ecuacion(num1, num2, _operador).ToString();
                 _borrar = false;
             }
             else
@@ -226,7 +222,7 @@ namespace MICALCU.ModeloVista
             }
         }
 
-        private double RealizarOperacion(double num1, double num2, string operacion)
+        private double ecuacion(double num1, double num2, string operacion)
         {
             switch (operacion)
             {
@@ -244,14 +240,12 @@ namespace MICALCU.ModeloVista
         }
 
 
-        #endregion
-
-        #region COMANDOS
-        public ICommand NumeroCommand => new Command<string>(Numero);
-        public ICommand OperacionCommand => new Command<string>(Operacion);
+    
+        public ICommand NumCommand => new Command<string>(Numero);
+        public ICommand OperaminiCommand => new Command<string>(Operacion);
         public ICommand IgualCommand => new Command(Igual);
-        public ICommand LimpiarPantallaCommand => new Command(ResetearCalculadora);
-        public ICommand BorrarUnNumeroCommand => new Command(BorrarUnNumero);
+        public ICommand borrarCommand => new Command(borrartodo);
+        public ICommand BorrarNumeroCommand => new Command(BorrarUnNumero);
         #endregion
     }
 }

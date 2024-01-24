@@ -6,7 +6,7 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style TargetType="Button" x:Key="NumeroButtonStyle">
+            <Style TargetType="Button" x:Key="botonstylo">
                 <Setter Property="BackgroundColor" Value="#39394c" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderWidth" Value="0" />
@@ -45,9 +45,9 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Text="C" Command="{Binding LimpiarPantallaCommand}" BackgroundColor="#39394c" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="0" CornerRadius="10" />
+                <Button Text="C" Command="{Binding borrarCommand}" BackgroundColor="#39394c" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="0" CornerRadius="10" />
 
-                <Button x:Name="divisionButton" Text="/" Command="{Binding OperacionCommand}" CommandParameter="/" BackgroundColor="#00CDFF" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="1" CornerRadius="30">
+                <Button x:Name="divisionButton" Text="/" Command="{Binding OperaminiCommand}" CommandParameter="/" BackgroundColor="#00CDFF" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="1" CornerRadius="30">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Divisions}" Value="True">
                             <Setter Property="BackgroundColor" Value="#00CDFF" />
@@ -58,7 +58,7 @@
                     </Button.Triggers>
                 </Button>
 
-                <Button x:Name="multiplicacionButton" Text="*" Command="{Binding OperacionCommand}" CommandParameter="x" BackgroundColor="#39394c" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="2" CornerRadius="30">
+                <Button x:Name="multiplicacionButton" Text="*" Command="{Binding OperaminiCommand}" CommandParameter="x" BackgroundColor="#39394c" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="2" CornerRadius="30">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Multiplicacions}" Value="True">
                             <Setter Property="BackgroundColor" Value="#00CDFF" />
@@ -82,9 +82,9 @@
 
                 <!-- Resto de los botones -->
                 <!-- Ajusta los DataTriggers para reflejar el cambio en el color del operador seleccionado -->
-                <Button Text="7" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="7" Grid.Row="1" Grid.Column="0" CornerRadius="30" />
-                <Button Text="8" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="8" Grid.Row="1" Grid.Column="1" CornerRadius="30" />
-                <Button Text="9" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="9" Grid.Row="1" Grid.Column="2" CornerRadius="30" />
+                <Button Text="7" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumCommand}" CommandParameter="7" Grid.Row="1" Grid.Column="0" CornerRadius="30" />
+                <Button Text="8" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumCommand}" CommandParameter="8" Grid.Row="1" Grid.Column="1" CornerRadius="30" />
+                <Button Text="9" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumCommand}" CommandParameter="9" Grid.Row="1" Grid.Column="2" CornerRadius="30" />
                 <Button x:Name="sumaButton" Text="+" Command="{Binding OperacionCommand}" CommandParameter="+" TextColor="#00CDFF" FontSize="32" Grid.Row="1" Grid.Column="3" CornerRadius="30">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Sumas}" Value="True">
@@ -97,19 +97,19 @@
                 </Button>
 
                 <!-- Resto de los botones (4, 5, 6, 1, 2, 3, =, 0, ., ⌫) -->
-                <Button Text="4" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="4" Grid.Row="2" Grid.Column="0" CornerRadius="30" />
-                <Button Text="5" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="5" Grid.Row="2" Grid.Column="1" CornerRadius="30" />
-                <Button Text="6" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="6" Grid.Row="2" Grid.Column="2" CornerRadius="30" />
+                <Button Text="4" Style="{StaticResource botonstylo}" Command="{Binding NumCommand}" CommandParameter="4" Grid.Row="2" Grid.Column="0" CornerRadius="30" />
+                <Button Text="5" Style="{StaticResource botonstylo}" Command="{Binding NumCommand}" CommandParameter="5" Grid.Row="2" Grid.Column="1" CornerRadius="30" />
+                <Button Text="6" Style="{StaticResource botonstylo}" Command="{Binding NumCommand}" CommandParameter="6" Grid.Row="2" Grid.Column="2" CornerRadius="30" />
 
-                <Button Text="1" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="1" Grid.Row="3" Grid.Column="0" CornerRadius="30" />
-                <Button Text="2" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="2" Grid.Row="3" Grid.Column="1" CornerRadius="30" />
-                    <Button Text="3" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="3" Grid.Row="3" Grid.Column="2" CornerRadius="30" />
+                <Button Text="1" Style="{StaticResource botonstylo}" Command="{Binding NumCommand}" CommandParameter="1" Grid.Row="3" Grid.Column="0" CornerRadius="30" />
+                <Button Text="2" Style="{StaticResource botonstylo}" Command="{Binding NumCommand}" CommandParameter="2" Grid.Row="3" Grid.Column="1" CornerRadius="30" />
+                <Button Text="3" Style="{StaticResource botonstylo}" Command="{Binding NumCommand}" CommandParameter="3" Grid.Row="3" Grid.Column="2" CornerRadius="30" />
                 <Button x:Name="igualButton" Text="=" Command="{Binding IgualCommand}" BackgroundColor="#39394c" TextColor="#00CDFF" FontSize="32" Grid.Row="3" Grid.Column="3" CornerRadius="30" />
 
-                <Button Text="0" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="0" Grid.Row="4" Grid.Column="0" CornerRadius="30" />
-                <Button Text="00" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="00" Grid.Row="4" Grid.Column="1" CornerRadius="30" />
-                <Button Text="." Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="." Grid.Row="4" Grid.Column="2" CornerRadius="30" />
-                <Button Text="⌫" Style="{StaticResource NumeroButtonStyle}" Command="{Binding BorrarUnNumeroCommand}" Grid.Row="4" Grid.Column="3" CornerRadius="30" />
+                <Button Text="0" Style="{StaticResource botonstylo}" Command="{Binding NumCommand}" CommandParameter="0" Grid.Row="4" Grid.Column="0" CornerRadius="30" />
+                <Button Text="00" Style="{StaticResource botonstylo}" Command="{Binding NumCommand}" CommandParameter="00" Grid.Row="4" Grid.Column="1" CornerRadius="30" />
+                <Button Text="." Style="{StaticResource botonstylo}" Command="{Binding NumCommand}" CommandParameter="." Grid.Row="4" Grid.Column="2" CornerRadius="30" />
+                <Button Text="⌫" Style="{StaticResource botonstylo}" Command="{Binding BorrarNumeroCommand}" Grid.Row="4" Grid.Column="3" CornerRadius="30" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

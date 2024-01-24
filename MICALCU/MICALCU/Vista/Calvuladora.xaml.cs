@@ -10,8 +10,7 @@ namespace MICALCU.Vista
         public Calvuladora()
         {
             InitializeComponent();
-            BindingContext = new Mcalcu();
+            BindingContext = new Mcalcu(Navigation);
         }
     }
-
 }

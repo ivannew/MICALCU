@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -6,176 +7,251 @@ namespace MICALCU.ModeloVista
 {
     public class Mcalcu : BaseViewModel
     {
-        private string _entradaActual = "0";
-        private string _operadorActual = "";
-        private double _primerNumero = 0.0;
-        private bool _seEstaIngresandoNumero = false;
 
-        public ICommand NumeroCommand { get; private set; }
-        public ICommand OperadorCommand { get; private set; }
-        public ICommand IgualCommand { get; private set; }
-        public ICommand LimpiarCommand { get; private set; }
-        public ICommand DecimalCommand { get; private set; }
-        public ICommand EliminarCommand { get; private set; }
+        #region VARIABLES
+        private double _num1;
+        private double _num2;
+        private string _operador;
+        private bool _borrar;
+        private string _resultado;
+        private string _operacion;
+        private bool _sumas;
+        private bool _divisions;
+        private bool _multiplicacions;
+        private bool _restas;
+        #endregion
 
-        public ICommand CCommand { get; private set; }
-        public ICommand DividirCommand { get; private set; }
-        public ICommand PorCommand { get; private set; }
-        public ICommand MasCommand { get; private set; }
-        public ICommand SieteCommand { get; private set; }
-        public ICommand OchoCommand { get; private set; }
-        public ICommand NueveCommand { get; private set; }
-        public ICommand MenosCommand { get; private set; }
-        public ICommand CuatroCommand { get; private set; }
-        public ICommand CincoCommand { get; private set; }
-        public ICommand SeisCommand { get; private set; }
-        public ICommand MultiCommand { get; private set; }
-        public ICommand UnoCommand { get; private set; }
-        public ICommand DosCommand { get; private set; }
-        public ICommand TresCommand { get; private set; }
-        public ICommand CeroCommand { get; private set; }
-        public ICommand PuntoCommand { get; private set; }
-
-        public string EntradaActual
+        #region CONSTRUCTOR
+        public Mcalcu(INavigation navigation)
         {
-            get { return _entradaActual; }
-            set { SetValue(ref _entradaActual, value); }
+            Navigation = navigation;
+            ResetearCalculadora();
         }
+        #endregion
 
-        public string OperadorActual
+        #region OBJETOS
+        public bool Divisions
         {
-            get { return _operadorActual; }
-            set { SetValue(ref _operadorActual, value); }
-        }
-
-        public double PrimerNumero
-        {
-            get { return _primerNumero; }
-            set { SetValue(ref _primerNumero, value); }
-        }
-
-        public bool SeEstaIngresandoNumero
-        {
-            get { return _seEstaIngresandoNumero; }
-            set { SetValue(ref _seEstaIngresandoNumero, value); }
-        }
-
-        public Mcalcu()
-        {
-            NumeroCommand = new Command<string>(EnBotonNumeroClickeado);
-            OperadorCommand = new Command<string>(EnBotonOperadorClickeado);
-            IgualCommand = new Command(EnBotonIgualClickeado);
-            LimpiarCommand = new Command(EnBotonLimpiarClickeado);
-            DecimalCommand = new Command(EnBotonDecimalClickeado);
-            EliminarCommand = new Command(EnBotonEliminarClickeado);
-
-            CCommand = new Command(EnBotonLimpiarClickeado);
-            DividirCommand = new Command(() => EnBotonOperadorClickeado("/"));
-            PorCommand = new Command(() => EnBotonOperadorClickeado("*"));
-            MasCommand = new Command(() => EnBotonOperadorClickeado("+"));
-            SieteCommand = new Command(() => EnBotonNumeroClickeado("7"));
-            OchoCommand = new Command(() => EnBotonNumeroClickeado("8"));
-            NueveCommand = new Command(() => EnBotonNumeroClickeado("9"));
-            MenosCommand = new Command(() => EnBotonOperadorClickeado("-"));
-            CuatroCommand = new Command(() => EnBotonNumeroClickeado("4"));
-            CincoCommand = new Command(() => EnBotonNumeroClickeado("5"));
-            SeisCommand = new Command(() => EnBotonNumeroClickeado("6"));
-            MultiCommand = new Command(() => EnBotonOperadorClickeado("*"));
-            UnoCommand = new Command(() => EnBotonNumeroClickeado("1"));
-            DosCommand = new Command(() => EnBotonNumeroClickeado("2"));
-            TresCommand = new Command(() => EnBotonNumeroClickeado("3"));
-            CeroCommand = new Command(() => EnBotonNumeroClickeado("0"));
-            PuntoCommand = new Command(EnBotonDecimalClickeado);
-        }
-
-        private void EnBotonNumeroClickeado(string presionado)
-        {
-            if (EntradaActual == "0" || !SeEstaIngresandoNumero)
+            get { return _divisions; }
+            set
             {
-                EntradaActual = "";
-                SeEstaIngresandoNumero = true;
-            }
-
-            EntradaActual += presionado;
-        }
-
-        private void EnBotonOperadorClickeado(string operadorPresionado)
-        {
-            if (SeEstaIngresandoNumero)
-            {
-                if (OperadorActual != "")
+                if (_divisions != value)
                 {
-                    double segundoNumero = double.Parse(EntradaActual);
-                    EntradaActual = Calcular(PrimerNumero, segundoNumero, OperadorActual).ToString();
+                    SetValue(ref _divisions, value);
+                    OnPropertyChanged(nameof(Divisions));
                 }
-                else
+            }
+        }
+
+        public bool Multiplicacions
+        {
+            get { return _multiplicacions; }
+            set
+            {
+                if (_multiplicacions != value)
                 {
-                    PrimerNumero = double.Parse(EntradaActual);
+                    SetValue(ref _multiplicacions, value);
+                    OnPropertyChanged(nameof(Multiplicacions));
+                }
+            }
+        }
+
+        public bool Restas
+        {
+            get { return _restas; }
+            set
+            {
+                if (_restas != value)
+                {
+                    SetValue(ref _restas, value);
+                    OnPropertyChanged(nameof(Restas));
+                }
+            }
+        }
+
+        public bool Sumas
+        {
+            get { return _sumas; }
+            set
+            {
+                if (_sumas != value)
+                {
+                    SetValue(ref _sumas, value);
+                    OnPropertyChanged(nameof(Sumas));
+                }
+            }
+        }
+
+        public double num1
+        {
+            get { return _num1; }
+            set { SetValue(ref _num1, value); }
+        }
+
+        public double num2
+        {
+            get { return _num2; }
+            set { SetValue(ref _num2, value); }
+        }
+
+        public string Resultado
+        {
+            get { return _resultado; }
+            set { SetValue(ref _resultado, value); }
+        }
+
+        public string Operacions
+        {
+            get { return _operacion; }
+            set { SetValue(ref _operacion, value); }
+        }
+        #endregion
+
+        #region PROCESOS
+        private void Numero(string numero)
+        {
+            if (_borrar)
+            {
+
+                Resultado = "0";
+                _borrar = false;
+            }
+
+            if (!string.IsNullOrEmpty(_operacion) && "+-x/".Contains(_operacion.Last()))
+            {
+                _operacion += " ";
+            }
+
+            if (Resultado == "0" && numero != ".")
+            {
+
+                Resultado = numero;
+            }
+            else if (!Resultado.Contains(".") || numero != ".")
+            {
+                Resultado+= numero;
+            }
+
+            _operacion += numero;
+        }
+
+        private void Operacion(string operador)
+        {
+            if (!string.IsNullOrEmpty(Resultado))
+            {
+                if (!_borrar)
+                {
+                    Calcular();
+                    num1 = double.Parse(Resultado);
+                    Operacions = $"{num1} {_operador}";
                 }
 
-                OperadorActual = operadorPresionado;
-                SeEstaIngresandoNumero = false;
-            }
-        }
+                _operador = operador;
+                _borrar = true;
+                _operacion = $"{num1} {_operador}";
 
-        private void EnBotonIgualClickeado()
-        {
-            if (SeEstaIngresandoNumero)
+
+                switch (operador)
+                {
+                    case "+":
+                        Sumas = true;
+                        break;
+                    case "-":
+                        Restas= true;
+                        break;
+                    case "x":
+                        Multiplicacions = true;
+                        break;
+                    case "/":
+                        Divisions = true;
+                        break;
+                }
+            }
+            else
             {
-                double segundoNumero = double.Parse(EntradaActual);
-                EntradaActual = Calcular(PrimerNumero, segundoNumero, OperadorActual).ToString();
-                OperadorActual = "";
-                SeEstaIngresandoNumero = false;
+                Resultado = "Error";
             }
         }
 
-        private void EnBotonLimpiarClickeado()
+        private void Igual()
         {
-            EntradaActual = "0";
-            OperadorActual = "";
-            PrimerNumero = 0.0;
-            SeEstaIngresandoNumero = false;
+            Calcular();
+            _operador = "";
+            Sumas = false;
+            Restas = false;
+            Multiplicacions = false;
+            Divisions = false;
+
         }
 
-        private void EnBotonDecimalClickeado()
+        private void ResetearCalculadora()
         {
-            if (!EntradaActual.Contains("."))
+            Resultado = "0";
+            _operacion = "";
+            num1 = 0;
+            num2 = 0;
+            _operador = "";
+            Sumas = false;
+            Restas= false;
+            Multiplicacions= false;
+            Divisions= false;
+        }
+
+        private void BorrarUnNumero()
+        {
+            if (Resultado.Length > 0)
             {
-                EntradaActual += ".";
+                Resultado = Resultado.Substring(0, Resultado.Length - 1);
             }
-        }
 
-        private void EnBotonEliminarClickeado()
-        {
-            if (EntradaActual.Length > 0)
+            if (string.IsNullOrEmpty(Resultado))
             {
-                EntradaActual = EntradaActual.Substring(0, EntradaActual.Length - 1);
+                Resultado = "0";
             }
         }
 
-        private double Calcular(double primerNumero, double segundoNumero, string operacion)
+        private void Calcular()
+        {
+            if (double.TryParse(Resultado, out double resultadoNumerico))
+            {
+                num2 = resultadoNumerico;
+
+
+                Resultado = RealizarOperacion(num1, num2, _operador).ToString();
+                _borrar = false;
+            }
+            else
+            {
+                Resultado = "Error";
+            }
+        }
+
+        private double RealizarOperacion(double num1, double num2, string operacion)
         {
             switch (operacion)
             {
                 case "+":
-                    return primerNumero + segundoNumero;
+                    return num1 + num2;
                 case "-":
-                    return primerNumero - segundoNumero;
-                case "*":
-                    return primerNumero * segundoNumero;
+                    return num1 - num2;
+                case "x":
+                    return num1 * num2;
                 case "/":
-                    if (segundoNumero != 0)
-                    {
-                        return primerNumero / segundoNumero;
-                    }
-                    else
-                    {
-                        EntradaActual = "Error";
-                        return 0;
-                    }
+                    return num2 != 0 ? num1 / num2 : double.NaN;
                 default:
-                    return 0;
+                    return num2;
             }
         }
+
+
+        #endregion
+
+        #region COMANDOS
+        public ICommand NumeroCommand => new Command<string>(Numero);
+        public ICommand OperacionCommand => new Command<string>(Operacion);
+        public ICommand IgualCommand => new Command(Igual);
+        public ICommand LimpiarPantallaCommand => new Command(ResetearCalculadora);
+        public ICommand BorrarUnNumeroCommand => new Command(BorrarUnNumero);
+        #endregion
     }
 }

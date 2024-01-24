@@ -4,143 +4,113 @@
              x:Class="MICALCU.Vista.Calvuladora"
              BackgroundColor="Black">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="NumeroButtonStyle">
+                <Setter Property="BackgroundColor" Value="#39394c" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="CornerRadius" Value="20" />
+                <!-- Ajusta el radio de esquina -->
+                <Setter Property="FontSize" Value="24" />
+                <!-- Ajusta el tamaño de la fuente -->
+            </Style>
+            <Style TargetType="Button" x:Key="OperadorButtonStyle">
+                <Setter Property="BackgroundColor" Value="#00CDFF" />
+                <Setter Property="TextColor" Value="#39394c" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="FontSize" Value="24" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-            <Entry x:Name="EntryDisplay" Text="{Binding EntradaActual}" HorizontalTextAlignment="End" FontSize="32" TextColor="White" Margin="10"/>
+        <StackLayout VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#51676C" HeightRequest="550">
+            <Label TextColor="White" Text="{Binding Operacions}" FontSize="24" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,16,0" />
+            <Label TextColor="White" x:Name="ResultadoLabel" Text="{Binding Resultado}" FontSize="48" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,16,0" />
 
-            <Frame BackgroundColor="#51676C">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                    <!-- Botón C -->
-                    <Button Grid.Row="0" Grid.Column="0" Text="C" BackgroundColor="#39394c"  Command="{Binding CCommand}" TextColor="#00CDFF">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
+                <Button Text="C" Command="{Binding LimpiarPantallaCommand}" BackgroundColor="#39394c" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="0" CornerRadius="10" />
 
-                    <!-- Botón / -->
-                    <Button Grid.Row="0" Grid.Column="1" Text="/" BackgroundColor="#39394c" Command="{Binding DividirCommand}" TextColor="#00CDFF">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
+                <Button x:Name="divisionButton" Text="/" Command="{Binding OperacionCommand}" CommandParameter="/" BackgroundColor="#00CDFF" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="1" CornerRadius="30">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Divisions}" Value="True">
+                            <Setter Property="BackgroundColor" Value="#00CDFF" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Divisions}" Value="False">
+                            <Setter Property="BackgroundColor" Value="#39394c" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
-                    <!-- Botón X -->
-                    <Button Grid.Row="0" Grid.Column="2" Text="X" BackgroundColor="#39394c" Command="{Binding PorCommand}" TextColor="#00CDFF" >
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
+                <Button x:Name="multiplicacionButton" Text="*" Command="{Binding OperacionCommand}" CommandParameter="x" BackgroundColor="#39394c" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="2" CornerRadius="30">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Multiplicacions}" Value="True">
+                            <Setter Property="BackgroundColor" Value="#00CDFF" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Multiplicacions}" Value="False">
+                            <Setter Property="BackgroundColor" Value="#39394c" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
-                    <!-- Botón + -->
-                    <Button Grid.Row="0" Grid.Column="3" Text="+" BackgroundColor="#39394c" Command="{Binding MasCommand}" TextColor="#00CDFF">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
+                <Button x:Name="restaButton" Text="-" Command="{Binding OperacionCommand}" CommandParameter="-" BackgroundColor="#39394c" TextColor="#00CDFF" FontSize="32" Grid.Row="0" Grid.Column="3" CornerRadius="30">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Restas}" Value="True">
+                            <Setter Property="BackgroundColor" Value="#00CDFF" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Restas}" Value="False">
+                            <Setter Property="BackgroundColor" Value="#39394c" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
-                    <!-- Botón 7 -->
-                    <Button Grid.Row="1" Grid.Column="0" Text="7" BackgroundColor="#39394c"  Command="{Binding SieteCommand}" TextColor="White">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
+                <!-- Resto de los botones -->
+                <!-- Ajusta los DataTriggers para reflejar el cambio en el color del operador seleccionado -->
+                <Button Text="7" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="7" Grid.Row="1" Grid.Column="0" CornerRadius="30" />
+                <Button Text="8" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="8" Grid.Row="1" Grid.Column="1" CornerRadius="30" />
+                <Button Text="9" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="9" Grid.Row="1" Grid.Column="2" CornerRadius="30" />
+                <Button x:Name="sumaButton" Text="+" Command="{Binding OperacionCommand}" CommandParameter="+" TextColor="#00CDFF" FontSize="32" Grid.Row="1" Grid.Column="3" CornerRadius="30">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Sumas}" Value="True">
+                            <Setter Property="BackgroundColor" Value="#00CDFF" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Sumas}" Value="False">
+                            <Setter Property="BackgroundColor" Value="#39394c" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
-                    <!-- Botón 8 -->
-                    <Button Grid.Row="1" Grid.Column="1" Text="8" BackgroundColor="#39394c" Command="{Binding OchoCommand}" TextColor="White" >
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
+                <!-- Resto de los botones (4, 5, 6, 1, 2, 3, =, 0, ., ⌫) -->
+                <Button Text="4" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="4" Grid.Row="2" Grid.Column="0" CornerRadius="30" />
+                <Button Text="5" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="5" Grid.Row="2" Grid.Column="1" CornerRadius="30" />
+                <Button Text="6" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="6" Grid.Row="2" Grid.Column="2" CornerRadius="30" />
 
-                    <!-- Botón 9 -->
-                    <Button Grid.Row="1" Grid.Column="2" Text="9" BackgroundColor="#39394c" Command="{Binding NueveCommand}" TextColor="White">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
+                <Button Text="1" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="1" Grid.Row="3" Grid.Column="0" CornerRadius="30" />
+                <Button Text="2" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="2" Grid.Row="3" Grid.Column="1" CornerRadius="30" />
+                    <Button Text="3" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="3" Grid.Row="3" Grid.Column="2" CornerRadius="30" />
+                <Button x:Name="igualButton" Text="=" Command="{Binding IgualCommand}" BackgroundColor="#39394c" TextColor="#00CDFF" FontSize="32" Grid.Row="3" Grid.Column="3" CornerRadius="30" />
 
-                    <!-- Botón - -->
-                    <Button Grid.Row="1" Grid.Column="3" Text="-" BackgroundColor="#39394c" Command="{Binding MenosCommand}" TextColor="#00CDFF">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón 4 -->
-                    <Button Grid.Row="2" Grid.Column="0" Text="4" BackgroundColor="#39394c" Command="{Binding CuatroCommand}" TextColor="White">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón 5 -->
-                    <Button Grid.Row="2" Grid.Column="1" Text="5" BackgroundColor="#39394c" Command="{Binding CincoCommand}" TextColor="White">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón 6 -->
-                    <Button Grid.Row="2" Grid.Column="2" Text="6" BackgroundColor="#39394c" Command="{Binding SeisCommand}" TextColor="White">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón * -->
-                    <Button Grid.Row="2" Grid.Column="3" Text="*" BackgroundColor="#39394c" Command="{Binding MultiCommand}" TextColor="#17cdee">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón 1 -->
-                    <Button Grid.Row="3" Grid.Column="0" Text="1" BackgroundColor="#39394c" Command="{Binding UnoCommand}" TextColor="White">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón 2 -->
-                    <Button Grid.Row="3" Grid.Column="1" Text="2" BackgroundColor="#39394c" Command="{Binding DosCommand}" TextColor="White" >
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón 3 -->
-                    <Button Grid.Row="3" Grid.Column="2" Text="3" BackgroundColor="#39394c" Command="{Binding TresCommand}" TextColor="White">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón = -->
-                    <Button Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Text="=" BackgroundColor="#00CDFF"  Command="{Binding IgualCommand}" TextColor="White">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón 0 -->
-                    <Button Grid.Row="4" Grid.Column="1" Text="0" BackgroundColor="#39394c" Command="{Binding CeroCommand}" TextColor="White">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-                    <!-- Botón . -->
-                    <Button Grid.Row="4" Grid.Column="0" Text="." BackgroundColor="#39394c" Command="{Binding PuntoCommand}" TextColor="#00CDFF">
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-                    <!-- Botón Eliminar -->
-                    <Button Grid.Row="4" Grid.Column="2" Text="⌫" BackgroundColor="#39394c" Command="{Binding EliminarCommand}" TextColor="#00CDFF" >
-                        <Button.BorderWidth>0</Button.BorderWidth>
-                        <Button.BorderRadius>30</Button.BorderRadius>
-                    </Button>
-
-
-                </Grid>
-            </Frame>
-
+                <Button Text="0" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="0" Grid.Row="4" Grid.Column="0" CornerRadius="30" />
+                <Button Text="00" Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="00" Grid.Row="4" Grid.Column="1" CornerRadius="30" />
+                <Button Text="." Style="{StaticResource NumeroButtonStyle}" Command="{Binding NumeroCommand}" CommandParameter="." Grid.Row="4" Grid.Column="2" CornerRadius="30" />
+                <Button Text="⌫" Style="{StaticResource NumeroButtonStyle}" Command="{Binding BorrarUnNumeroCommand}" Grid.Row="4" Grid.Column="3" CornerRadius="30" />
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
